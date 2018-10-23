@@ -20,13 +20,15 @@ class SearchBar extends Component {
   onFormSubmit(event) {
     event.preventDefault();
 
-    this.props.addLocacion(this.state.term);
+    this.props.addLocacion(this.props.boardId,this.state.term);
     this.setState({ term: "" });
   }
 
   render() {
     return (
-      <form onSubmit={this.onFormSubmit} className="input-group">
+    <div className="container">
+    <center>
+      <form onSubmit={this.onFormSubmit} className="input-group" style={{ width:70 + '%' }}>
         <input
           placeholder="Get the current weather"
           className="form-control"
@@ -34,9 +36,11 @@ class SearchBar extends Component {
           onChange={this.onInputChange}
         />
         <span className="input-group-btn">
-          <button type="submit" className="btn btn-secondary">Submit</button>
+          <button type="submit" className="btn btn-secondary-danger">Submit</button>
         </span>
       </form>
+      </center>
+    </div>
     );
   }
 }

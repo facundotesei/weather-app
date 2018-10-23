@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { FETCH_BOARDS, FETCH_BOARD, DELETE_BOARD } from "../actions";
+import { FETCH_BOARDS, FETCH_BOARD, DELETE_BOARD, ADD_LOCACION } from "../actions";
 
 export default function(state = {}, action) {
   switch (action.type) {
@@ -9,6 +9,8 @@ export default function(state = {}, action) {
       return { ...state, [action.payload.data.id]: action.payload.data };
     case FETCH_BOARDS:
       return _.mapKeys(action.payload.data, "id");
+      case ADD_LOCACION:
+      return { ...state, [action.payload.data.id]: action.payload.data };
     default:
       return state;
   }

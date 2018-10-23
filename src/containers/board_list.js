@@ -11,6 +11,7 @@ class BoardList extends Component {
 
   renderBoards() {
     return _.map(this.props.boards, board => {
+       var styles = { backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.85))," + `url(${board.name})` }
       return (
         <li className="list-group-item" key={board.id}>
           <Link to={`/boards/${board.id}`}>
@@ -22,16 +23,18 @@ class BoardList extends Component {
   }
 
   render() {
+  const {boards} = this.props;    
+
     return (
-      <div>
+      <div className="container" >
         <div className="text-xs-right">
           <Link className="btn btn-primary" to="/boards/new">
             Add a Board
           </Link>
         </div>
         <h3>My Boards</h3>
-        <ul className="list-group">
-          {this.renderBoards()}
+        <ul className="list-group" style={{ width:80 + '%' }}>
+          {!this.props.boards ? (<li className="list-group-item">Loading...</li>) : this.renderBoards() }
         </ul>
       </div>
     );

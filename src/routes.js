@@ -10,7 +10,7 @@ import BoardDetail from "./containers/board_detail";
 export const makeMainRoutes = () => {
   return (
     <Router history={history}>
-        <div>
+        <div className="container-fluid">
         <Switch>
           <Route path="/boards/new" component={BoardNew}  />
           <Route path="/boards/:id" component={BoardDetail} />

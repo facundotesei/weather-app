@@ -19,7 +19,7 @@ export function fetchBoardsByUser(id) {
 
 export function createBoard(values, callback) {
   const request = axios
-    .post(`${ROOT_URL}/boards`, values)
+    .post(`${ROOT_URL}/boards?user=1`, values)
     .then(() => callback());
 
   return {
@@ -60,14 +60,13 @@ export function deleteBoard(id, callback) {
   
 // }
 
-export function addLocacion(id,lugar, callback) {
+export function addLocacion(id,lugar) {
     const request = axios
-      .get(`${ROOT_URL}/boards/${id}/addLocacion?lugar=${lugar}`)
-      .then(() => callback());
+      .get(`${ROOT_URL}boards/${id}/addLocacion?lugar=${lugar}`);
   
     return {
       type: ADD_LOCACION,
-      payload: id
+      payload: request
     }; //Ver que payload mandarle al Reducer 
   
 }
