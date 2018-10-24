@@ -11,10 +11,10 @@ class LocacionList extends Component {
       this.state = { url:''};
     }
     componentDidMount() {
-        const { name } = this.props.locacion; //Creo que no tendria que estar en un LifeCycle de React 
-        const random = Math.floor(Math.random() * 3) + 0  
-        axios.get(`${IMG_API_URL}?key=${IMG_API_KEY}&q=${name}&image_type=photo&per_page=4`)
-        .then((response) => this.setState({url:response.data.hits[random].largeImageURL}))             
+        const { name } = this.props.locacion;
+        const random = Math.floor(Math.random() * 2) + 0   
+        axios.get(`${IMG_API_URL}?key=${IMG_API_KEY}&q=${name}&image_type=photo&per_page=3`)
+        .then((response) => this.setState({url:response.data.hits[0].largeImageURL}))             
     }
 
     onDeleteClick = () => {

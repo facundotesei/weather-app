@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchBoardsByUser } from "../actions";
 import '../style/board_list.css';
-import { Jumbotron } from 'react-bootstrap';
 
 
 class BoardList extends Component {

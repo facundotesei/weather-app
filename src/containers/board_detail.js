@@ -1,12 +1,17 @@
-import _ from "lodash";
+import forEach from "lodash/forEach";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchBoard, deleteBoard } from "../actions";
 import SearchBar from './search_bar';
 import LocacionList from '../components/locacion_list';
 import '../style/board_detail.css';
-class BoardDetail extends Component {
+import SockJsClient from 'react-stomp';
 
+class BoardDetail extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { locacionUpdate: '' };
+  }
   componentDidMount() {
     const { id } = this.props.match.params;
     this.props.fetchBoard(id);
@@ -20,9 +25,21 @@ class BoardDetail extends Component {
     });
   }
 
+  onMessage = (msj) => {
+    const { locaciones } = this.props.board; 
+      forEach(locaciones, loc => {
+        if(loc.id === msj.id) {
+          this.setState({ locacionUpdate: msj}) 
+        }
+      })
+      
+    }
+  
+
   render() {
     const { board, fetchBoard } = this.props;
-
+    const { locacionUpdate } = this.state;
+  
     if (!board) { return <div>Loading...</div>; }
 
     return (
@@ -36,10 +53,15 @@ class BoardDetail extends Component {
           <div >Delete {board.name}</div>
         </button>
       <div className="container">
-        <LocacionList locaciones={board.locaciones} name={board.name} boardId={board.id}
+        <LocacionList locaciones={board.locaciones} name={board.name} update={locacionUpdate}
+         boardId={board.id} 
          fetchBoard={fetchBoard}   
         />
-      </div>  
+      </div>
+      <SockJsClient url='http://localhost:8080/ws' topics={['/topic/all']}
+      onMessage={this.onMessage}
+      debug={ true }
+        />
       </div>
     );
   }

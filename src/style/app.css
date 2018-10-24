@@ -34,36 +34,3 @@ a:hover {
 a:active {
   text-decoration: none;
 }
-/* 
-
-renderBoards() {
-    return _.map(this.props.boards, board => {
-      return (
-        <Link to={`/boards/${board.id}`}  key={board.id}>
-          <li className="list-group-item">
-            <Well>{board.name}</Well>
-          </li>
-        </Link>
-      );
-    });
-  }
-
-  render() {
-    return (
-      <div className="container" >
-            <Link to="/boards/new">
-            <div className="addBoard">Add a Board</div>
-            </Link>
-           <h3 className="my-boards">My Boards</h3>
-           <ul className="list-group" style={{ width:80 + '%' }}>
-            { this.renderBoards() }
-           </ul>
-          </div>
-    );
-  }
-}
-
-
-
-
-*/

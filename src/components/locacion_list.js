@@ -3,15 +3,9 @@ import React, { Component } from "react";
 import LocacionItem from './locacion_item';
 
 class LocacionList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { btnStyle: true,
-                   delete: false,
-                   locacion: ''  };
-  }
-
+  
   render() {
-    const { locaciones, name, fetchBoard } = this.props;
+    const { name, fetchBoard, boardId, locaciones, update } = this.props;
 
     if (!locaciones) { return <div>Loading...</div>; }
 
@@ -26,15 +20,23 @@ class LocacionList extends Component {
         </thead>
         <tbody>
           {_.map(locaciones, locacion => {
+            if(locacion.id === update.id) {
+              return ( <LocacionItem locacion={update} key={locacion.id}  
+                boardId={boardId}
+                fetchBoard={fetchBoard}
+               />
+             );
+            } else {
              return ( <LocacionItem locacion={locacion} key={locacion.id}  
-                       boardId={this.props.boardId}
+                       boardId={boardId}
                        fetchBoard={fetchBoard}
                       />
-                    );})
+                    );}})
           }  
         </tbody>
       </table>
       </center>
+     
     </div>  
       
     );
