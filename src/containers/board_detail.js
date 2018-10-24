@@ -1,14 +1,11 @@
 import _ from "lodash";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { fetchBoard, deleteBoard } from "../actions";
 import SearchBar from './search_bar';
 import LocacionList from '../components/locacion_list';
+import '../style/board_detail.css';
 class BoardDetail extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     const { id } = this.props.match.params;
@@ -24,29 +21,24 @@ class BoardDetail extends Component {
   }
 
   render() {
-    const { board } = this.props;
+    const { board, fetchBoard } = this.props;
 
-    if (!board) {
-      return <div>Loading...</div>;
-    }
+    if (!board) { return <div>Loading...</div>; }
 
     return (
-      <div className="container-fluid">
-        <Link to="/"> 
-          <span className="glyphicon glyphicon-arrow-left" aria-hidden="true">
-          </span>
-           Back To Index
-        </Link>
+      <div  className="container-fluid">
         <SearchBar boardId={board.id} />
-        <p>{board.name}</p>
+        
         <button
-          className="btn btn-danger pull-xs-left"
+          className="board-btn-delete pull-xs-right"
           onClick={this.onDeleteClick.bind(this)}
         >
-          Delete Board
+          <div >Delete {board.name}</div>
         </button>
       <div className="container">
-        <LocacionList locaciones={board.locaciones}/>
+        <LocacionList locaciones={board.locaciones} name={board.name} boardId={board.id}
+         fetchBoard={fetchBoard}   
+        />
       </div>  
       </div>
     );

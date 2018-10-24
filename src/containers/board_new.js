@@ -3,6 +3,8 @@ import { Field, reduxForm } from "redux-form";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { createBoard } from "../actions";
+import '../style/board_new.css';
+
 
 class BoardNew extends Component {
   renderField(field) {
@@ -31,7 +33,7 @@ class BoardNew extends Component {
 
     return (
       <div className="container">
-      <form onSubmit={handleSubmit(this.onSubmit.bind(this))} className="container" style={{ width:50 + '%' }}>
+      <form onSubmit={handleSubmit(this.onSubmit.bind(this))} className="form-new" style={{ width:50 + '%' }}>
         <Field
           label="Name For Board"
           name="name"

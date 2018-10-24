@@ -36,7 +36,8 @@ class SearchBar extends Component {
           onChange={this.onInputChange}
         />
         <span className="input-group-btn">
-          <button type="submit" className="btn btn-secondary-danger">Submit</button>
+          <button type="submit" className="btn btn-secondary-danger"><span className="glyphicon glyphicon-search" aria-hidden="true"></span>
+          </button>
         </span>
       </form>
       </center>

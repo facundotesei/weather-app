@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const ROOT_URL = 'http://localhost:8080/';
+export const ROOT_URL = 'http://localhost:8080';
 export const FETCH_BOARDS = "fetch_boards";
 export const FETCH_BOARD = "fetch_board";
 export const CREATE_BOARD = "create_board";
@@ -38,9 +38,8 @@ export function fetchBoard(id) {
 }
 
 export function deleteBoard(id, callback) {
-  const request = axios
-    .delete(`${ROOT_URL}/boards/${id}`)
-    .then(() => callback());
+  axios.delete(`${ROOT_URL}/boards/${id}`) //const request
+       .then(() => callback());
 
   return {
     type: DELETE_BOARD,
@@ -52,17 +51,17 @@ export function deleteBoard(id, callback) {
 //     const request = axios
 //       .delete(`${ROOT_URL}/boards/${id}/removeLocacion?lugarId=${lugarId}`)
 //       .then(() => callback());
-  
+
 //     return {
 //       type: REMOVE_LOCACION,
-//       payload: id
+//       payload: id,lugarId
 //     };
   
 // }
 
 export function addLocacion(id,lugar) {
     const request = axios
-      .get(`${ROOT_URL}boards/${id}/addLocacion?lugar=${lugar}`);
+      .get(`${ROOT_URL}/boards/${id}/addLocacion?lugar=${lugar}`);
   
     return {
       type: ADD_LOCACION,

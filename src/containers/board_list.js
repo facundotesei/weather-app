@@ -3,43 +3,46 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchBoardsByUser } from "../actions";
+import '../style/board_list.css';
+import { Jumbotron } from 'react-bootstrap';
+
 
 class BoardList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { url:''};
+  }
   componentDidMount() {
     this.props.fetchBoardsByUser();
   }
 
   renderBoards() {
     return _.map(this.props.boards, board => {
-       var styles = { backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.85))," + `url(${board.name})` }
       return (
-        <li className="list-group-item" key={board.id}>
-          <Link to={`/boards/${board.id}`}>
+        <Link to={`/boards/${board.id}`}  key={board.id}>
+          <li className="list-group-item">
             {board.name}
-          </Link>
-        </li>
+          </li>
+        </Link>
       );
     });
   }
 
   render() {
-  const {boards} = this.props;    
-
     return (
       <div className="container" >
-        <div className="text-xs-right">
-          <Link className="btn btn-primary" to="/boards/new">
-            Add a Board
-          </Link>
-        </div>
-        <h3>My Boards</h3>
-        <ul className="list-group" style={{ width:80 + '%' }}>
-          {!this.props.boards ? (<li className="list-group-item">Loading...</li>) : this.renderBoards() }
-        </ul>
-      </div>
+            <Link to="/boards/new">
+            <div className="addBoard">Add a Board</div>
+            </Link>
+           <h3 className="my-boards">My Boards</h3>
+           <ul className="list-group" style={{ width:80 + '%' }}>
+            { this.renderBoards() }
+           </ul>
+          </div>
     );
   }
 }
+
 
 function mapStateToProps(state) {
   return { boards: state.boards };
