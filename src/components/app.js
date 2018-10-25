@@ -9,12 +9,16 @@ class App extends Component {
   }
 
   login() {
+    this.props.auth.login();
   }
 
   logout() {
+    this.props.auth.logout();
   }
 
+
   render() {
+    const { isAuthenticated } = this.props.auth;
 
     return (
       <div className="navbar"> 
@@ -26,12 +30,33 @@ class App extends Component {
         <Navbar.Toggle />
       </Navbar.Header>
       <Navbar.Collapse>
+      { 
+        isAuthenticated() && (
         <Nav>
-          <NavItem><Link to="/">Boards</Link></NavItem>
+          <NavItem componentClass='span'><Link to="/boards" >Boards</Link></NavItem>
         </Nav>
-        <Nav>
-          <NavItem>Log Out</NavItem>
-        </Nav>
+        )
+      }
+        { 
+          !isAuthenticated() && (
+          <Nav>
+              <NavItem 
+               onClick={this.login.bind(this)} 
+              >  Log In
+              </NavItem>
+           </Nav>
+          )
+        }
+        { 
+          isAuthenticated() && (
+          <Nav>
+              <NavItem 
+               onClick={this.logout.bind(this)} 
+              >  Log Out
+              </NavItem>
+           </Nav>
+          )
+        }
       </Navbar.Collapse>
     </Navbar>
       </div>

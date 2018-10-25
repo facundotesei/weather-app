@@ -6,21 +6,24 @@ import SearchBar from './search_bar';
 import LocacionList from '../components/locacion_list';
 import '../style/board_detail.css';
 import SockJsClient from 'react-stomp';
-import { Glyphicon } from 'react-bootstrap';
 class BoardDetail extends Component {
   constructor(props) {
     super(props);
     this.state = { locacionUpdate: '' };
   }
   componentDidMount() {
+    const { getAccessToken } = this.props.auth;
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
     const { id } = this.props.match.params;
-    this.props.fetchBoard(id);
+    this.props.fetchBoard(id, headers);
   }
 
   onDeleteClick() {
     const { id } = this.props.match.params;
+    const { getAccessToken } = this.props.auth; //Se repite mucho este patron
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
 
-    this.props.deleteBoard(id, () => {
+    this.props.deleteBoard(id, headers, () => {
       this.props.history.push("/boards");
     });
   }
@@ -37,14 +40,14 @@ class BoardDetail extends Component {
   
 
   render() {
-    const { board, fetchBoard } = this.props;
+    const { board, fetchBoard, auth } = this.props;
     const { locacionUpdate } = this.state;
   
     if (!board) { return <div>Loading...</div>; }
 
     return (
       <div  className="container-fluid">
-        <SearchBar boardId={board.id} />
+        <SearchBar boardId={board.id} auth={auth} />
         
         <button
           className="board-btn-delete pull-xs-right"

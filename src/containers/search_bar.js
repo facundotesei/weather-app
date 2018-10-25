@@ -19,8 +19,11 @@ class SearchBar extends Component {
 
   onFormSubmit(event) {
     event.preventDefault();
+    const { addLocacion, boardId } = this.props;
+    const { getAccessToken } = this.props.auth;
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
 
-    this.props.addLocacion(this.props.boardId,this.state.term);
+    addLocacion(boardId, this.state.term, headers);
     this.setState({ term: "" });
   }
 

@@ -23,7 +23,9 @@ class BoardNew extends Component {
   }
 
   onSubmit(values) {
-    this.props.createBoard(values, () => {
+    const { getAccessToken } = this.props.auth;
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+    this.props.createBoard(values, headers, () => {
       this.props.history.push("/boards");
     });
   }

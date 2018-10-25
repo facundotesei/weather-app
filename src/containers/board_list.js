@@ -12,7 +12,9 @@ class BoardList extends Component {
     this.state = { url:''};
   }
   componentDidMount() {
-    this.props.fetchBoardsByUser();
+    const { getAccessToken } = this.props.auth;
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+    this.props.fetchBoardsByUser(1,headers);
   }
 
   renderBoards() {

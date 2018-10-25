@@ -8,8 +8,8 @@ export const DELETE_BOARD = "delete_board";
 export const ADD_LOCACION = "add_locacion";
 export const REMOVE_LOCACION = "remove_locacion";
 
-export function fetchBoardsByUser(id) {
-  const request = axios.get(`${ROOT_URL}/boards?user=1`);
+export function fetchBoardsByUser(id, headers) {
+  const request = axios.get(`${ROOT_URL}/boards?user=${id}`, { headers });
 
   return {
     type: FETCH_BOARDS,
@@ -17,9 +17,9 @@ export function fetchBoardsByUser(id) {
   };
 }
 
-export function createBoard(values, callback) {
+export function createBoard(values, headers, callback) {
   const request = axios
-    .post(`${ROOT_URL}/boards?user=1`, values)
+    .post(`${ROOT_URL}/boards?user=1`, values, { headers })
     .then(() => callback());
 
   return {
@@ -28,8 +28,8 @@ export function createBoard(values, callback) {
   };
 }
 
-export function fetchBoard(id) {
-  const request = axios.get(`${ROOT_URL}/boards/${id}`);
+export function fetchBoard(id, headers) {
+  const request = axios.get(`${ROOT_URL}/boards/${id}`, { headers });
 
   return {
     type: FETCH_BOARD,
@@ -37,8 +37,8 @@ export function fetchBoard(id) {
   };
 }
 
-export function deleteBoard(id, callback) {
-  axios.delete(`${ROOT_URL}/boards/${id}`) //const request
+export function deleteBoard(id, headers, callback) {
+  axios.delete(`${ROOT_URL}/boards/${id}`, { headers })
        .then(() => callback());
 
   return {
@@ -47,26 +47,14 @@ export function deleteBoard(id, callback) {
   };
 }
 
-// export function removeLocacion(id,lugarId, callback) {
-//     const request = axios
-//       .delete(`${ROOT_URL}/boards/${id}/removeLocacion?lugarId=${lugarId}`)
-//       .then(() => callback());
-
-//     return {
-//       type: REMOVE_LOCACION,
-//       payload: id,lugarId
-//     };
-  
-// }
-
-export function addLocacion(id,lugar) {
-    const request = axios
-      .get(`${ROOT_URL}/boards/${id}/addLocacion?lugar=${lugar}`);
+export function addLocacion(id, lugar, headers) {
+  const request = axios
+    .get(`${ROOT_URL}/boards/${id}/addLocacion?lugar=${lugar}`, { headers });
   
     return {
       type: ADD_LOCACION,
       payload: request
-    }; //Ver que payload mandarle al Reducer 
+    }; 
   
 }
 
