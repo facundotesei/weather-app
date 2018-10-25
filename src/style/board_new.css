@@ -1,6 +1,53 @@
 .form-new {
     margin: auto;
     width: 60%;
-    padding: 10px;
-    padding-top: 20%; 
+    padding-top: 10%; 
+    font-size: 150%;
 }
+.btn-primary {
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 90%;
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+    font-weight: 900%;
+    padding:0.5%;
+    border-radius: 50ch;
+    color: white; 
+    border: 2px solid #00638E;
+}
+
+.btn:hover {
+    background-color: #f0f1f1;
+    color: #00638E;
+}
+
+.btn-danger {
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 90%;
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+    font-weight: 900%;
+    padding:0.5%;
+    border-radius: 50ch;
+    margin-left: 1.5%;
+    color: #f0f1f1; 
+    border: 2px solid red;
+}
+.btn-danger:hover {
+    background-color:#f0f1f1;
+    color: red;
+}
+.btn-danger:visited {
+    text-decoration: none;
+    color: #f0f1f1;
+  }
+
+  .btn-danger:visited:hover {
+    text-decoration: none;
+    color: red;
+  
+  }

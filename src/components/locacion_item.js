@@ -14,7 +14,7 @@ class LocacionList extends Component {
         const { name } = this.props.locacion;
         const random = Math.floor(Math.random() * 2) + 0   
         axios.get(`${IMG_API_URL}?key=${IMG_API_KEY}&q=${name}&image_type=photo&per_page=3`)
-        .then((response) => this.setState({url:response.data.hits[0].largeImageURL}))             
+        .then((response) => this.setState({url:response.data.hits[random].largeImageURL}))             
     }
 
     onDeleteClick = () => {
