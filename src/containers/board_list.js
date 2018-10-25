@@ -3,8 +3,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchBoardsByUser } from "../actions";
+import '../style/board_list.css';
+
 
 class BoardList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { url:''};
+  }
   componentDidMount() {
     this.props.fetchBoardsByUser();
   }
@@ -12,31 +18,30 @@ class BoardList extends Component {
   renderBoards() {
     return _.map(this.props.boards, board => {
       return (
-        <li className="list-group-item" key={board.id}>
-          <Link to={`/boards/${board.id}`}>
+        <Link to={`/boards/${board.id}`}  key={board.id}>
+          <li className="list-group-item">
             {board.name}
-          </Link>
-        </li>
+          </li>
+        </Link>
       );
     });
   }
 
   render() {
     return (
-      <div>
-        <div className="text-xs-right">
-          <Link className="btn btn-primary" to="/boards/new">
-            Add a Board
-          </Link>
-        </div>
-        <h3>My Boards</h3>
-        <ul className="list-group">
-          {this.renderBoards()}
-        </ul>
-      </div>
+      <div className="container" >
+            <Link to="/boards/new">
+            <div className="addBoard">Add a Board</div>
+            </Link>
+           <h3 className="my-boards">My Boards</h3>
+           <ul className="list-group" style={{ width:80 + '%' }}>
+            { this.renderBoards() }
+           </ul>
+          </div>
     );
   }
 }
+
 
 function mapStateToProps(state) {
   return { boards: state.boards };

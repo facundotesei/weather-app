@@ -1,9 +1,17 @@
+import forEach from "lodash/forEach";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { fetchBoard, deleteBoard } from "../actions";
-
+import SearchBar from './search_bar';
+import LocacionList from '../components/locacion_list';
+import '../style/board_detail.css';
+import SockJsClient from 'react-stomp';
+import { Glyphicon } from 'react-bootstrap';
 class BoardDetail extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { locacionUpdate: '' };
+  }
   componentDidMount() {
     const { id } = this.props.match.params;
     this.props.fetchBoard(id);
@@ -17,24 +25,43 @@ class BoardDetail extends Component {
     });
   }
 
-  render() {
-    const { board } = this.props;
-
-    if (!board) {
-      return <div>Loading...</div>;
+  onMessage = (msj) => {
+    const { locaciones } = this.props.board; 
+      forEach(locaciones, loc => {
+        if(loc.id === msj.id) {
+          this.setState({ locacionUpdate: msj}) 
+        }
+      })
+      
     }
+  
+
+  render() {
+    const { board, fetchBoard } = this.props;
+    const { locacionUpdate } = this.state;
+  
+    if (!board) { return <div>Loading...</div>; }
 
     return (
-      <div>
-        <Link to="/">Back To Index</Link>
+      <div  className="container-fluid">
+        <SearchBar boardId={board.id} />
+        
         <button
-          className="btn btn-danger pull-xs-right"
+          className="board-btn-delete pull-xs-right"
           onClick={this.onDeleteClick.bind(this)}
         >
-          Delete Board
+          <div >Delete {board.name}</div>
         </button>
-        <p>{board.id}</p>
-        <p>{board.name}</p>
+      <div className="container">
+        <LocacionList locaciones={board.locaciones} name={board.name} update={locacionUpdate}
+         boardId={board.id} 
+         fetchBoard={fetchBoard}   
+        />
+      </div>
+      <SockJsClient url='http://localhost:8080/ws' topics={['/topic/all']}
+      onMessage={this.onMessage}
+      debug={ true }
+        />
       </div>
     );
   }

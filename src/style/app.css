@@ -1,3 +1,36 @@
-.btn-margin {
-  margin: 7px 3px;
+.navbar {
+  font-weight: bold;
+  font-size: 110%;
+}
+
+a {
+  color: rgb(190, 187, 187);
+  text-decoration: none;
+
+
+}
+a:hover {
+  color: white;
+  text-decoration: none;
+
+}
+a:link {
+  text-decoration: none;
+  color: white;
+
+}
+
+a:visited {
+  color: rgb(190, 187, 187);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  color: white;
+
+}
+
+a:active {
+  text-decoration: none;
 }
