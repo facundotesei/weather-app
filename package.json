@@ -31,8 +31,7 @@
     "react-stomp": "^4.0.0",
     "redux": "^4.0.1",
     "redux-form": "^7.4.2",
-    "redux-promise": "^0.6.0",
-    "weather-icons-react": "^1.2.0"
+    "redux-promise": "^0.6.0"
   },
   "scripts": {
     "start": "react-scripts start",

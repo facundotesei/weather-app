@@ -4,6 +4,7 @@
     padding-top: 10%; 
     font-size: 150%;
 }
+
 .btn-primary {
     text-align: center;
     text-decoration: none;
@@ -37,17 +38,18 @@
     color: #f0f1f1; 
     border: 2px solid red;
 }
+
 .btn-danger:hover {
     background-color:#f0f1f1;
     color: red;
 }
+
 .btn-danger:visited {
     text-decoration: none;
     color: #f0f1f1;
-  }
+}
 
-  .btn-danger:visited:hover {
+.btn-danger:visited:hover {
     text-decoration: none;
-    color: red;
-  
+    color: red;  
   }

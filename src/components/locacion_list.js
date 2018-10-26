@@ -8,6 +8,7 @@ class LocacionList extends Component {
     const { name, fetchBoard, boardId, locaciones, update, auth } = this.props;
 
     if (!locaciones) { return <div>Loading...</div>; }
+    
 
     return (
       <div className="container">
@@ -21,10 +22,12 @@ class LocacionList extends Component {
         <tbody>
           {_.map(locaciones, locacion => {
             if(locacion.id === update.id) {
-              return ( <LocacionItem locacion={update} key={locacion.id}  
-                boardId={boardId}
-                fetchBoard={fetchBoard}
-               />
+              return ( <LocacionItem locacion={update} 
+                       key={locacion.id}  
+                       boardId={boardId}
+                       fetchBoard={fetchBoard}
+                       auth={auth}
+                      />
              );
             } else {
              return ( <LocacionItem 
@@ -39,7 +42,6 @@ class LocacionList extends Component {
         </tbody>
       </table>
       </center>
-     
     </div>  
       
     );

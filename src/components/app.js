@@ -2,23 +2,16 @@ import React, { Component } from 'react';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import '../style/app.css';
+import  lowercase  from "lodash/lowerCase"
 
 class App extends Component {
-  goTo(route) {
-    this.props.history.replace(`/${route}`)
-  }
 
-  login() {
-    this.props.auth.login();
-  }
+  login() { this.props.auth.login(); }
 
-  logout() {
-    this.props.auth.logout();
-  }
-
+  logout() { this.props.auth.logout(); }
 
   render() {
-    const { isAuthenticated } = this.props.auth;
+    const { isAuthenticated, getName } = this.props.auth;
 
     return (
       <div className="navbar"> 
@@ -33,7 +26,11 @@ class App extends Component {
       { 
         isAuthenticated() && (
         <Nav>
-          <NavItem componentClass='span'><Link to="/boards" >Boards</Link></NavItem>
+          <NavItem componentClass='span'>
+             <Link to={`/boards/${lowercase(getName()).replace(/ /g,'')}`}>
+                Boards
+             </Link>
+          </NavItem>
         </Nav>
         )
       }
@@ -59,7 +56,7 @@ class App extends Component {
         }
       </Navbar.Collapse>
     </Navbar>
-      </div>
+    </div>
     );
   }
 }

@@ -36,14 +36,15 @@ export default class Auth {
         const headers = { 'Authorization': `Bearer ${authResult.accessToken}`}
         this.getProfile((err, {name, email}) => { 
           const user = {name, email};
-        axios.post(`${ROOT_URL}/users`,user, { headers })
-        .then((res) => {
-         const name = lowercase(res.data.name).replace(/ /g,'')
-          console.log(user)
-          localStorage.setItem('userid', res.data.id);
-          history.replace(`/boards/${name}`);
-        });
-      })
+          localStorage.setItem('name', name);
+          localStorage.setItem('email', email);
+          const nom = lowercase(name).replace(/ /g,'');  
+          axios.post(`${ROOT_URL}/users`,user, { headers })
+            .then((res) => {
+              localStorage.setItem('userid', res.data.id);
+              history.replace(`/boards/${nom}`);
+            });
+         })
 
       } else if (err) {
         history.replace('/');
@@ -71,6 +72,16 @@ export default class Auth {
     return accessToken;
   }
 
+  getHeaders = () => {
+     return { 'Authorization': `Bearer ${this.getAccessToken()}` }
+  }
+
+  getName = () => { return localStorage.getItem('name') }
+
+  getEmail = () => { return localStorage.getItem('email') }
+
+  getId  = () => { return localStorage.getItem('userid'); }
+
   getProfile(cb) {
     let accessToken = this.getAccessToken();
     this.auth0.client.userInfo(accessToken, (err, profile) => {
@@ -86,6 +97,9 @@ export default class Auth {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     localStorage.removeItem('userid');
+    localStorage.removeItem('name');
+    localStorage.removeItem('email');
+
     this.userProfile = null;
     history.replace('/');
   }

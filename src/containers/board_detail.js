@@ -12,63 +12,58 @@ class BoardDetail extends Component {
     this.state = { locacionUpdate: '' };
   }
   componentDidMount() {
-    const { getAccessToken } = this.props.auth;
-    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+    const { getHeaders } = this.props.auth;
     const { id } = this.props.match.params;
-    this.props.fetchBoard(id, headers);
+    this.props.fetchBoard(id, getHeaders());
   }
 
   onDeleteClick() {
-    const userId = localStorage.getItem('userid');
-    const { user, id } = this.props.match.params;
-    const { getAccessToken } = this.props.auth; //Se repite mucho este patron
-    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
-
-    this.props.deleteBoard(id, userId, headers, () => {
+    const { user, id } = this.props.match.params; 
+    const { getHeaders, getId } = this.props.auth; 
+    this.props.deleteBoard(id, getId(), getHeaders(), () => {
       this.props.history.push(`/boards/${user}`);
     });
   }
 
   onMessage = (msj) => {
     const { locaciones } = this.props.board; 
-      forEach(locaciones, loc => {
-        if(loc.id === msj.id) {
-          this.setState({ locacionUpdate: msj}) 
+      forEach(locaciones, ({ id }) => {
+        if(id === msj.id) {
+          this.setState({ locacionUpdate: msj }) 
         }
-      })
-      
-    }
+     })     
+   }
   
-
   render() {
-    const { board, fetchBoard, auth } = this.props;
+    if (!this.props.board) { return <div>Loading...</div>; }
+
+    const { board: { id, name, locaciones }, fetchBoard, auth } = this.props;
     const { locacionUpdate } = this.state;
   
-    if (!board) { return <div>Loading...</div>; }
-
     return (
       <div  className="container-fluid">
-        <SearchBar boardId={board.id} auth={auth} />
-        
+        <SearchBar boardId={id} auth={auth} />
         <button
           className="board-btn-delete pull-xs-right"
           onClick={this.onDeleteClick.bind(this)}
         >
-          <div >Delete {board.name}</div>
+          <div >Delete { name }</div>
         </button>
-      <div className="container">
-        <LocacionList
-         auth={auth} 
-         locaciones={board.locaciones} 
-         name={board.name} 
-         update={locacionUpdate}
-         boardId={board.id} 
-         fetchBoard={fetchBoard}   
-        />
-      </div>
-      <SockJsClient url='http://localhost:8080/ws' topics={['/topic/all']}
-      onMessage={this.onMessage}
-      debug={ true }
+        <div className="container">
+          <LocacionList
+           auth={auth} 
+           locaciones={locaciones} 
+           name={name} 
+           update={locacionUpdate}
+           boardId={id} 
+           fetchBoard={fetchBoard}   
+         />
+        </div>
+        <SockJsClient 
+          url='http://localhost:8080/ws' 
+          topics={['/topic/all']}
+          onMessage={this.onMessage}
+          debug={ true }
         />
       </div>
     );

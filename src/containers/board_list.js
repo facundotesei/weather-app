@@ -5,26 +5,22 @@ import { Link } from "react-router-dom";
 import { fetchBoardsByUser } from "../actions";
 import '../style/board_list.css';
 
-
 class BoardList extends Component {
   constructor(props) {
     super(props);
     this.state = { url:'' };
   }
   componentDidMount() {
-    const id = localStorage.getItem('userid'); //poner user en state y pasarlo por props de auth0
-    const { getAccessToken } = this.props.auth;
-    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}   
-    this.props.fetchBoardsByUser(id, headers);
-  
+    const { getHeaders, getId } = this.props.auth;
+    this.props.fetchBoardsByUser(getId(), getHeaders());
   }
 
   renderBoards(user) {
-    return _.map(this.props.boards, board => {
+    return _.map(this.props.boards, ({ id, name }) => {
       return (
-        <Link to={`/boards/${user}/${board.id}`} key={board.id}>
+        <Link to={`/boards/${user}/${id}`} key={id}>
           <li className="list-group-item">
-            {board.name}
+            { name }
           </li>
         </Link>
       );
@@ -42,14 +38,12 @@ class BoardList extends Component {
            <ul className="list-group" style={{ width:80 + '%' }}>
             { this.renderBoards(user) }
            </ul>
-          </div>
+      </div>
     );
   }
 }
 
 
-function mapStateToProps(state) {
-  return { boards: state.boards };
-}
+function mapStateToProps({ boards }) { return { boards }; }
 
 export default connect(mapStateToProps, { fetchBoardsByUser })(BoardList);

@@ -23,11 +23,9 @@ class BoardNew extends Component {
   }
 
   onSubmit(values) {
-    const id = localStorage.getItem('userid');
     const { user } = this.props.match.params;
-    const { getAccessToken } = this.props.auth;
-    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
-    this.props.createBoard(values, id, headers, () => {
+    const { getHeaders, getId } = this.props.auth;
+    this.props.createBoard(values, getId(), getHeaders(), () => {
       this.props.history.push(`/boards/${user}`);  
     });
   }
@@ -38,7 +36,10 @@ class BoardNew extends Component {
 
     return (
       <div className="container">
-      <form onSubmit={handleSubmit(this.onSubmit.bind(this))} className="form-new" style={{ width:50 + '%' }}>
+      <form 
+        onSubmit={handleSubmit(this.onSubmit.bind(this))} 
+        className="form-new" 
+        style={{ width:50 + '%' }}>
         <Field
           label="Name For Board"
           name="name"
@@ -52,10 +53,10 @@ class BoardNew extends Component {
   }
 }
 
-function validate(values) {
+function validate({ name }) {
   const errors = {};
 
-  if (!values.name) {
+  if (!name) {
     errors.name = "Enter a Name";
   }
   return errors;
