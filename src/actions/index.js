@@ -8,6 +8,7 @@ export const DELETE_BOARD = "delete_board";
 export const ADD_LOCACION = "add_locacion";
 export const REMOVE_LOCACION = "remove_locacion";
 
+
 export function fetchBoardsByUser(id, headers) {
   const request = axios.get(`${ROOT_URL}/boards?user=${id}`, { headers });
 
@@ -17,9 +18,9 @@ export function fetchBoardsByUser(id, headers) {
   };
 }
 
-export function createBoard(values, headers, callback) {
+export function createBoard(values, id, headers, callback) {
   const request = axios
-    .post(`${ROOT_URL}/boards?user=1`, values, { headers })
+    .post(`${ROOT_URL}/boards?user=${id}`, values, { headers })
     .then(() => callback());
 
   return {
@@ -37,8 +38,8 @@ export function fetchBoard(id, headers) {
   };
 }
 
-export function deleteBoard(id, headers, callback) {
-  axios.delete(`${ROOT_URL}/boards/${id}`, { headers })
+export function deleteBoard(id, userId, headers, callback) {
+  axios.delete(`${ROOT_URL}/boards/${id}?user=${userId}`, { headers })
        .then(() => callback());
 
   return {

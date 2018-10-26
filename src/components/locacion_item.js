@@ -18,8 +18,10 @@ class LocacionList extends Component {
     }
 
     onDeleteClick = () => {
-      axios.delete(`${ROOT_URL}/boards/${this.props.boardId}/removeLocacion?lugarId=${this.props.locacion.id}`)
-      .then(() => this.props.fetchBoard(this.props.boardId));             
+      const { getAccessToken } = this.props.auth; //Se repite mucho este patron
+      const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+      axios.delete(`${ROOT_URL}/boards/${this.props.boardId}/removeLocacion?lugarId=${this.props.locacion.id}`, { headers })
+      .then(() => this.props.fetchBoard(this.props.boardId, headers));             
     }
 
   render() {

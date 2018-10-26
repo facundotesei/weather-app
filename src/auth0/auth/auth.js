@@ -1,7 +1,9 @@
 import auth0 from 'auth0-js';
 import { AUTH_CONFIG } from './auth0-variables';
 import history from '../../history';
-
+import axios from 'axios';
+import { ROOT_URL } from '../../actions/index';
+import  lowercase  from "lodash/lowerCase"
 export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: AUTH_CONFIG.domain,
@@ -24,14 +26,25 @@ export default class Auth {
   }
 
   login() {
-    this.auth0.authorize();
+    this.auth0.authorize()  
   }
 
   handleAuthentication() {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
-        history.replace('/boards');
+        const headers = { 'Authorization': `Bearer ${authResult.accessToken}`}
+        this.getProfile((err, {name, email}) => { 
+          const user = {name, email};
+        axios.post(`${ROOT_URL}/users`,user, { headers })
+        .then((res) => {
+         const name = lowercase(res.data.name).replace(/ /g,'')
+          console.log(user)
+          localStorage.setItem('userid', res.data.id);
+          history.replace(`/boards/${name}`);
+        });
+      })
+
       } else if (err) {
         history.replace('/');
         console.log(err);
@@ -72,6 +85,7 @@ export default class Auth {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+    localStorage.removeItem('userid');
     this.userProfile = null;
     history.replace('/');
   }

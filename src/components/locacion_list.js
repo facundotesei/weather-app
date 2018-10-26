@@ -5,7 +5,7 @@ import LocacionItem from './locacion_item';
 class LocacionList extends Component {
   
   render() {
-    const { name, fetchBoard, boardId, locaciones, update } = this.props;
+    const { name, fetchBoard, boardId, locaciones, update, auth } = this.props;
 
     if (!locaciones) { return <div>Loading...</div>; }
 
@@ -27,9 +27,12 @@ class LocacionList extends Component {
                />
              );
             } else {
-             return ( <LocacionItem locacion={locacion} key={locacion.id}  
+             return ( <LocacionItem 
+                       locacion={locacion} 
+                       key={locacion.id}  
                        boardId={boardId}
                        fetchBoard={fetchBoard}
+                       auth={auth}
                       />
                     );}})
           }  

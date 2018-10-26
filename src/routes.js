@@ -22,21 +22,21 @@ export const makeMainRoutes = () => {
         <div>
         <Route path="/" render={(props) => <App auth={auth} {...props} />} />         
         <Switch>
-          <Route path="/boards/new" render={(props) => (
+          <Route path="/boards/:user/new" render={(props) => (
             !auth.isAuthenticated() ? (
               <Redirect to="/"/>
             ) : (
               <BoardNew auth={auth} {...props} />
             )
           )} />
-          <Route path="/boards/:id" render={(props) => (
+          <Route path="/boards/:user/:id" render={(props) => (
             !auth.isAuthenticated() ? (
               <Redirect to="/"/>
             ) : (
               <BoardDetail auth={auth} {...props} />
             )
           )} />
-          <Route path="/boards" render={(props) => (
+          <Route path="/boards/:user" render={(props) => (
             !auth.isAuthenticated() ? (
               <Redirect to="/"/>
             ) : (

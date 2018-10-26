@@ -19,12 +19,13 @@ class BoardDetail extends Component {
   }
 
   onDeleteClick() {
-    const { id } = this.props.match.params;
+    const userId = localStorage.getItem('userid');
+    const { user, id } = this.props.match.params;
     const { getAccessToken } = this.props.auth; //Se repite mucho este patron
     const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
 
-    this.props.deleteBoard(id, headers, () => {
-      this.props.history.push("/boards");
+    this.props.deleteBoard(id, userId, headers, () => {
+      this.props.history.push(`/boards/${user}`);
     });
   }
 
@@ -56,7 +57,11 @@ class BoardDetail extends Component {
           <div >Delete {board.name}</div>
         </button>
       <div className="container">
-        <LocacionList locaciones={board.locaciones} name={board.name} update={locacionUpdate}
+        <LocacionList
+         auth={auth} 
+         locaciones={board.locaciones} 
+         name={board.name} 
+         update={locacionUpdate}
          boardId={board.id} 
          fetchBoard={fetchBoard}   
         />

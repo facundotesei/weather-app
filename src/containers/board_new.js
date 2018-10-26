@@ -23,15 +23,18 @@ class BoardNew extends Component {
   }
 
   onSubmit(values) {
+    const id = localStorage.getItem('userid');
+    const { user } = this.props.match.params;
     const { getAccessToken } = this.props.auth;
     const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
-    this.props.createBoard(values, headers, () => {
-      this.props.history.push("/boards");
+    this.props.createBoard(values, id, headers, () => {
+      this.props.history.push(`/boards/${user}`);  
     });
   }
 
   render() {
     const { handleSubmit } = this.props;
+    const { user } = this.props.match.params;
 
     return (
       <div className="container">
@@ -42,7 +45,7 @@ class BoardNew extends Component {
           component={this.renderField}
         />
         <button type="submit" className="btn btn-primary">Submit</button>
-        <Link to="/boards" className="btn btn-danger">Cancel</Link>
+        <Link to={`/boards/${user}`} className="btn btn-danger">Cancel</Link>
       </form>
     </div>
     );
