@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const ROOT_URL = 'http://localhost:8080';
+export const ROOT_URL = 'https://challenge-weather-api.herokuapp.com';
 export const FETCH_BOARDS = "fetch_boards";
 export const FETCH_BOARD = "fetch_board";
 export const CREATE_BOARD = "create_board";
