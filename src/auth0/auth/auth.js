@@ -80,7 +80,7 @@ export default class Auth {
 
   getEmail = () => { return localStorage.getItem('email') }
 
-  getId  = () => { return localStorage.getItem('userid'); }
+  getId  = () => { return localStorage.getItem('userid') }
 
   getProfile(cb) {
     let accessToken = this.getAccessToken();
