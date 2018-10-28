@@ -6,10 +6,10 @@ import { fetchBoardsByUser } from "../actions";
 import '../style/board_list.css';
 
 class BoardList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { url:'' };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = { url:'' };
+  // }
   componentDidMount() {
     const { getHeaders, getId } = this.props.auth;
     this.props.fetchBoardsByUser(getId(), getHeaders());

@@ -9,7 +9,7 @@ export default function(state = {}, action) {
       return { ...state, [action.payload.data.id]: action.payload.data };
     case FETCH_BOARDS:
       return _.mapKeys(action.payload.data, "id");
-      case ADD_LOCACION:
+    case ADD_LOCACION:
       return { ...state, [action.payload.data.id]: action.payload.data };
     default:
       return state;

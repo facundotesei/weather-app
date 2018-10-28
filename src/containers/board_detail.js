@@ -6,6 +6,7 @@ import SearchBar from './search_bar';
 import LocacionList from '../components/locacion_list';
 import '../style/board_detail.css';
 import SockJsClient from 'react-stomp';
+
 class BoardDetail extends Component {
   constructor(props) {
     super(props);

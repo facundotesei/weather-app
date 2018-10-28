@@ -2,7 +2,7 @@ import _ from "lodash";
 import React, { Component } from "react";
 import LocacionItem from './locacion_item';
 
-class LocacionList extends Component {
+class LocacionList extends Component { // Tendria que ser Stateless
   
   render() {
     const { name, fetchBoard, boardId, locaciones, update, auth } = this.props;

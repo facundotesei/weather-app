@@ -5,7 +5,7 @@ import axios from 'axios';
 import '../style/locacion_item.css'
 import { IMG_API_URL, IMG_API_KEY } from '../constants';
 
-class LocacionList extends Component {
+class LocacionItem extends Component {
     constructor(props) {
       super(props);
       this.state = { url:''};
@@ -59,4 +59,4 @@ class LocacionList extends Component {
   }
 }
 
-export default LocacionList
+export default LocacionItem

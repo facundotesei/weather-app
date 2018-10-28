@@ -9,7 +9,7 @@ class SearchBar extends Component {
     this.state = { term: "" };
   }
 
-  onInputChange = ({ target: { value } }) => {
+  onInputChange = ({ target: { value }}) => {
     this.setState({ term: value });
   }
 

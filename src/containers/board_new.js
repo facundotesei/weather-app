@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { createBoard } from "../actions";
 import '../style/board_new.css';
 
-
 class BoardNew extends Component {
   renderField(field) {
     const { meta: { touched, error } } = field;
