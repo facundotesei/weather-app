@@ -61,7 +61,7 @@ class BoardDetail extends Component {
          />
         </div>
         <SockJsClient 
-          url='http://localhost:8080/ws' 
+          url='https://challenge-weather-api.herokuapp.com/ws' 
           topics={['/topic/all']}
           onMessage={this.onMessage}
           debug={ true }
