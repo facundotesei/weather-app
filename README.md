@@ -9,6 +9,7 @@ docker pull ftesei/weather-app
 ```
 git clone https://github.com/facundotesei/weather-app.git
 cd weather-app
+git checkout develop
 npm install && npm start
 ```
 or via Docker & bash
