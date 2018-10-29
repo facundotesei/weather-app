@@ -1,5 +1,7 @@
 # weather-app
 ## **[Live Demo On Heroku.](https://challenge-weather-app.herokuapp.com/)** 
+![preview](https://user-images.githubusercontent.com/26975031/47670154-489d3700-db8b-11e8-988b-b2160be4c198.png)
+
 #### **[Docker Image](https://hub.docker.com/r/ftesei/weather-app/)**
 
 ```
